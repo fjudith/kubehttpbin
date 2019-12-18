@@ -5,6 +5,10 @@ metadata:
   namespace: {{.Values.namespace}}
   labels:
     app: kubehttpbin
+  {{- if .Values.annotations }}
+  annotations:
+{{ toYaml .Values.annotations | indent 4 }}
+  {{- end }}
 spec:
   replicas: {{.Values.numReplicas}}
   strategy:
@@ -17,10 +21,6 @@ spec:
       app: kubehttpbin
   template:
     metadata:
-      {{- if .Values.annotations }}
-      annotations:
-{{ toYaml .Values.annotations | indent 8 }}
-      {{- end }}
       labels:
         app: kubehttpbin
     spec:
